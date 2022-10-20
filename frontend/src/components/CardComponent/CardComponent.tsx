@@ -28,21 +28,30 @@ const CardComponent: React.FC<CardComponentProps> = ({ data }) => {
             src="https://picsum.photos/300/200"
           />
           <CardBody>
-            <CardTitle tag="h5">
-              {data.title}
-            </CardTitle>
-            <CardSubtitle
-              className="mb-2 text-muted"
-              tag="h6"
-            >
-              {data.subtitle}
-            </CardSubtitle>
+            <div className="card-title">
+              <CardTitle tag="h5">
+                {data.title}
+              </CardTitle>
+            </div>
+            <div className="card-subtitle">
+              <CardSubtitle
+                className="mb-2 text-muted"
+                tag="h6"
+              >
+                {data.subtitle}
+              </CardSubtitle>
+            </div>
             <CardText>
-            {data.description}
+              {data.description}
             </CardText>
-            <Button>
-              Ler mais
-            </Button>
+            <footer>
+              <Button>
+                Ler mais
+              </Button>
+              <span>
+              {data.data}
+              </span>
+            </footer>
           </CardBody>
         </Card>
       </div>
