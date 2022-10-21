@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { MainContent, ButtonContainer } from './styles';
+import React, { useCallback, useState } from 'react';
+import { MainContent, ButtonContainer, StyledLink } from './styles';
 import {
   Collapse,
   Navbar,
@@ -16,11 +16,16 @@ import {
   Button
 } from 'reactstrap';
 import { FaSearch } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const Header: React.FC = (args) => {
   const [isOpen, setIsOpen] = useState(false);
-
   const toggle = () => setIsOpen(!isOpen);
+  const navigate = useNavigate();
+
+  const handleOptionsClick = useCallback((path: string, search: string) => {
+    navigate({pathname: path, search: `?sort=${search}`});
+  }, [navigate]);
 
   return (
     <MainContent>
@@ -38,21 +43,21 @@ const Header: React.FC = (args) => {
               <DropdownToggle nav caret>
                 Categorias
               </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>Dicas</DropdownItem>
-                <DropdownItem>Resolvendo questões</DropdownItem>
-                <DropdownItem>Slides</DropdownItem>
+              <DropdownMenu end>
+                <DropdownItem onClick={() => handleOptionsClick('/posts', 'Dicas')}>Dicas</DropdownItem>
+                <DropdownItem onClick={() => handleOptionsClick('/posts', 'Resolvendo questões')}>Resolvendo questões</DropdownItem>
+                <DropdownItem onClick={() => handleOptionsClick('/posts', 'Slides')}>Slides</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 Assuntos
               </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>Direito Administrativo</DropdownItem>
-                <DropdownItem>Direito Constitucional</DropdownItem>
-                <DropdownItem>Direito Penal</DropdownItem>
-                <DropdownItem>Legislação Extravagante</DropdownItem>
+              <DropdownMenu end>
+                <DropdownItem onClick={() => handleOptionsClick('/posts', 'Direito administrativo')}>Direito administrativo</DropdownItem>
+                <DropdownItem onClick={() => handleOptionsClick('/posts', 'Direito constitucional')}>Direito constitucional</DropdownItem>
+                <DropdownItem onClick={() => handleOptionsClick('/posts', 'Direito penal')}>Direito penal</DropdownItem>
+                <DropdownItem onClick={() => handleOptionsClick('/posts', 'Legislação extravagante')}>Legislação extravagante</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
