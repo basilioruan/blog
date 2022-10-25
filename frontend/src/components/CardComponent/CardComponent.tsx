@@ -33,7 +33,7 @@ const CardComponent: React.FC<CardComponentProps> = ({ data }) => {
         >
           <img
             alt="Sample"
-            src={data.img}
+            src={data.image}
           />
           <CardBody>
             <div className="card-title">
