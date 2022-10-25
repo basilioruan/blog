@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   Card,
   CardBody,
@@ -7,6 +7,8 @@ import {
   CardText,
   Button
 } from 'reactstrap';
+import { useNavigate } from 'react-router-dom';
+
 import { CardProps } from '../../@types/Card';
 import { MainContent } from './styles';
 
@@ -15,6 +17,12 @@ interface CardComponentProps {
 }
 
 const CardComponent: React.FC<CardComponentProps> = ({ data }) => {
+  const navigate = useNavigate();
+
+  const handlePostClick = useCallback((id: string) => {
+    navigate({pathname: '/post', search: `?post=${id}`});
+  }, [navigate]);
+
   return (
     <MainContent>
       <div className="card">
@@ -25,7 +33,7 @@ const CardComponent: React.FC<CardComponentProps> = ({ data }) => {
         >
           <img
             alt="Sample"
-            src="https://picsum.photos/300/200"
+            src={data.img}
           />
           <CardBody>
             <div className="card-title">
@@ -45,11 +53,11 @@ const CardComponent: React.FC<CardComponentProps> = ({ data }) => {
               {data.description}
             </CardText>
             <footer>
-              <Button>
+              <Button onClick={() => handlePostClick(data.id)}>
                 Ler mais
               </Button>
               <span>
-              {data.data}
+              {data.date}
               </span>
             </footer>
           </CardBody>
