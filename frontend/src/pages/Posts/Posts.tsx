@@ -14,7 +14,7 @@ const Posts: React.FC = () => {
     if (search) {
       setTitle(search);
     }
-    setPosts(cards.data.filter((card: { subtitle: string | null, subject: string | null; }) => card.subtitle === search || card.subject === search));
+    setPosts(cards.data.filter((card: { category: string | null, subject: string | null; }) => card.category === search || card.subject === search));
     if (posts.length === 0) {
       setTitle('Não foram encontrados posts para essa categoria ou assunto');
     }
