@@ -16,5 +16,30 @@ export const MainContent = styled.div`
         color: #6c757d;
       }
     }
+
+    .tags {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
   `}
+`
+
+export const Tag = styled.div`
+    ${() => css`
+      background: #9370DB;
+      color: #fff;
+
+      border-radius: 10px;
+      padding: 1px 8px;
+      margin-right: 10px;
+
+      font-size: 12px;
+      font-family: sans-serif;
+      font-weight: 400;
+      color: #fafafa;
+      letter-spacing: .3px;
+
+      cursor: pointer;
+    `}
 `

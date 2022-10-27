@@ -20,7 +20,7 @@ const Post: React.FC = () => {
     <MainContent>
       <HeaderContainer>
         <div className="title">
-          <PostHeader title={post.title} date={post.date} author={post.author} />
+          <PostHeader title={post.title} date={post.date} author={post.author} tags={[post.category, post.subject]} />
         </div>
       </HeaderContainer>
       <BodyContainer>

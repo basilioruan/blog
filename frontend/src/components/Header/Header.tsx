@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
-import { MainContent, ButtonContainer, StyledLink } from './styles';
+import { useNavigate } from 'react-router-dom';
+import { MainContent, ButtonContainer } from './styles';
 import {
   Collapse,
   Navbar,
@@ -16,7 +17,6 @@ import {
   Button
 } from 'reactstrap';
 import { FaSearch } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
 
 const Header: React.FC = (args) => {
   const [isOpen, setIsOpen] = useState(false);
