@@ -46,7 +46,7 @@ const CardComponent: React.FC<CardComponentProps> = ({ data }) => {
                 className="mb-2 text-muted"
                 tag="h6"
               >
-                {data.subtitle}
+                {data.category}
               </CardSubtitle>
             </div>
             <CardText>
