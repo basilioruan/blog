@@ -21,7 +21,7 @@ export const MainContent = styled.div`
     .copyright {
       display: flex;
       justify-content: center;
-      padding: 36px;
+      padding: 24px;
     }
   `}
 `
