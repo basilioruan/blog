@@ -5,24 +5,27 @@ export const MainContent = styled.div`
   ${({theme}) => css`
     font-family: Arial !important;
     font-size: 18px;
+
+    .title {
+      font-family: Arial;
+      color: turquoise;
+    }
+
   `}
 `
 export const ButtonContainer = styled.div`
   ${() => css `
     display: flex;
+    justify-content: center;
     align-items: center;
     background: transparent;
 
-    .link {
-      text-decoration: none;
+    .icon:hover {
+      color: red; 
+    }
+
+    .button-search {
+      margin-left: 28px;
     }
   `}
 `
-
-export const StyledLink = styled(Link)`
-    text-decoration: none;
-
-    &:focus, &:hover, &:visited, &:link, &:active {
-        text-decoration: none;
-    }
-`;

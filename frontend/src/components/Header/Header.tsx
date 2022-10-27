@@ -1,13 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MainContent, ButtonContainer } from './styles';
 import {
   Collapse,
   Navbar,
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
   NavLink,
   UncontrolledDropdown,
   DropdownToggle,
@@ -16,7 +14,8 @@ import {
   NavbarText,
   Button
 } from 'reactstrap';
-import { FaSearch } from 'react-icons/fa';
+import { FaSearch, FaYoutube } from 'react-icons/fa';
+import { MainContent, ButtonContainer } from './styles';
 
 const Header: React.FC = (args) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,21 +28,18 @@ const Header: React.FC = (args) => {
 
   return (
     <MainContent>
-      <Navbar dark color="dark" expand="xl">
-        <NavbarBrand className="nav-name" href="/">Blog MCEC</NavbarBrand>
+      <Navbar dark color="dark" expand="xl" container>
+        <NavbarBrand className="nav-name" href="/">
+          <span className="title"> Blog </span> <span>MCEC </span>
+        </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          <Nav className="me-auto" navbar>
-            <NavItem>
-              <NavLink href="https://www.youtube.com/channel/UCjoYp6RSyBlIv85TPks1wKw" target="_blank">
-                YouTube
-              </NavLink>
-            </NavItem>
+          <Nav className="me-auto" navbar horizontal='center'>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 Categorias
               </DropdownToggle>
-              <DropdownMenu end>
+              <DropdownMenu dark>
                 <DropdownItem onClick={() => handleOptionsClick('/posts', 'Dicas')}>Dicas</DropdownItem>
                 <DropdownItem onClick={() => handleOptionsClick('/posts', 'Resolvendo questões')}>Resolvendo questões</DropdownItem>
                 <DropdownItem onClick={() => handleOptionsClick('/posts', 'Slides')}>Slides</DropdownItem>
@@ -53,7 +49,7 @@ const Header: React.FC = (args) => {
               <DropdownToggle nav caret>
                 Assuntos
               </DropdownToggle>
-              <DropdownMenu end>
+              <DropdownMenu dark>
                 <DropdownItem onClick={() => handleOptionsClick('/posts', 'Direito administrativo')}>Direito administrativo</DropdownItem>
                 <DropdownItem onClick={() => handleOptionsClick('/posts', 'Direito constitucional')}>Direito constitucional</DropdownItem>
                 <DropdownItem onClick={() => handleOptionsClick('/posts', 'Direito penal')}>Direito penal</DropdownItem>
@@ -63,7 +59,10 @@ const Header: React.FC = (args) => {
           </Nav>
           <NavbarText>
             <ButtonContainer>
-              <Button color="dark">
+              <NavLink href="https://www.youtube.com/channel/UCjoYp6RSyBlIv85TPks1wKw" target="_blank">
+                <FaYoutube className="icon" />
+              </NavLink>
+              <Button className="button-search" color="dark">
                 <FaSearch />
               </Button>
             </ButtonContainer>

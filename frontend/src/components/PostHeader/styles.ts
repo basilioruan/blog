@@ -27,8 +27,12 @@ export const MainContent = styled.div`
 
 export const Tag = styled.div`
     ${() => css`
-      background: #9370DB;
+      background: gray;
       color: #fff;
+
+      &:hover {
+        background: DarkGray;
+      }
 
       border-radius: 10px;
       padding: 1px 8px;
