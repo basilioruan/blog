@@ -9,7 +9,8 @@
       "author": "Author",
       "subject": "Legislação extravagante",
       "date": "26/03/1997",
-      "image": "https://picsum.photos/300/200"
+      "image": "https://picsum.photos/300/200",
+      "highlight": true
     },
     {
       "id": 2,
@@ -20,7 +21,8 @@
       "author": "Author",
       "subject": "Direito administrativo",
       "date": "26/03/1997",
-      "image": "https://picsum.photos/300/200"
+      "image": "https://picsum.photos/300/200",
+      "highlight": true
     },
     {
       "id": 3,
@@ -31,7 +33,8 @@
       "author": "Author",
       "subject": "Direito administrativo",
       "date": "26/03/1997",
-      "image": "https://picsum.photos/300/200"
+      "image": "https://picsum.photos/300/200",
+      "highlight": true
     },
     {
       "id": 4,
@@ -42,7 +45,8 @@
       "author": "Author",
       "subject": "Legislação extravagante",
       "date": "26/03/1997",
-      "image": "https://picsum.photos/300/200"
+      "image": "https://picsum.photos/300/200",
+      "highlight": false
     },
     {
       "id": 5,
@@ -53,7 +57,8 @@
       "author": "Author",
       "subject": "Direito penal",
       "date": "26/03/1997",
-      "image": "https://picsum.photos/300/200"
+      "image": "https://picsum.photos/300/200",
+      "highlight": false
     },
     {
       "id": 6,
@@ -64,7 +69,8 @@
       "author": "Author",
       "subject": "Direito constitucional",
       "date": "26/03/1997",
-      "image": "https://picsum.photos/300/200"
+      "image": "https://picsum.photos/300/200",
+      "highlight": false
     }
   ]
 }

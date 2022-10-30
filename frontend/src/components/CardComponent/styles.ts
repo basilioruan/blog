@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 export const MainContent = styled.div`
   ${(theme) => css`
     margin-bottom: 64px;
+    
     margin-right: 24px;
 
     .card { 
