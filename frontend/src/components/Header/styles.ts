@@ -8,7 +8,7 @@ export const MainContent = styled.div`
 
     .title {
       font-family: Arial;
-      color: turquoise;
+      color: White;
     }
 
     img { 
