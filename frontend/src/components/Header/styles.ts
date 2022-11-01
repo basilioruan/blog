@@ -11,6 +11,13 @@ export const MainContent = styled.div`
       color: turquoise;
     }
 
+    img { 
+      height: 40px;
+      width: 40px;
+      border-radius: 100%;
+      margin-right: 5px;
+    }
+
   `}
 `
 export const ButtonContainer = styled.div`

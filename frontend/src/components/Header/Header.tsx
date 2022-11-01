@@ -16,6 +16,7 @@ import {
 } from 'reactstrap';
 import { FaSearch, FaYoutube } from 'react-icons/fa';
 import { MainContent, ButtonContainer } from './styles';
+import logo from '../../assets/logo.jpeg';
 
 const Header: React.FC = (args) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +31,11 @@ const Header: React.FC = (args) => {
     <MainContent>
       <Navbar dark color="dark" expand="xl" container>
         <NavbarBrand className="nav-name" href="/">
-          <span className="title"> Blog </span> <span>MCEC </span>
+          <img
+            alt="logo"
+            src={logo}
+          />
+          <span className="title"> Blog </span>
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
