@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import PostBody from '../../components/PostBody/PostBody';
 import PostHeader from '../../components/PostHeader/PostHeader';
+import RelatedPosts from '../../components/RelatedPosts/RelatedPosts';
 import posts from '../../mock/cards.json';
-import { HeaderContainer, MainContent, BodyContainer } from './styles';
+import { HeaderContainer, MainContent, BodyContainer, FooterContainer } from './styles';
 
 const Post: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -26,6 +27,9 @@ const Post: React.FC = () => {
       <BodyContainer>
         <PostBody image={post.image} content={post.text} />
       </BodyContainer>
+      <FooterContainer>
+        <RelatedPosts tags={{category: post.category, subject: post.subject}} />
+      </FooterContainer>
     </MainContent>
   )
 }

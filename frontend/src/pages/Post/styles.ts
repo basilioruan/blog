@@ -27,3 +27,15 @@ export const BodyContainer = styled.div`
     padding: 0 32px;
   `}
 `
+
+export const FooterContainer = styled.div`
+  ${({theme}) => css`
+    width: 100%;
+    margin: 0 auto;
+    padding: 32px 0px;
+
+    background: #F8F8FF;
+
+    margin-top: 64px;
+  `}
+`
