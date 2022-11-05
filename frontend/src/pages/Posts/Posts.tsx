@@ -3,6 +3,7 @@ import CardList from '../../components/CardList/CardList';
 import { MainContent } from './styles';
 import cards from '../../mock/cards.json';
 import { useSearchParams } from 'react-router-dom';
+import SearchComponent from '../../components/SearchComponent/SearchComponent';
 
 const Posts: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -22,6 +23,7 @@ const Posts: React.FC = () => {
 
   return (
     <MainContent>
+      <SearchComponent />
       <h2> { title } </h2>
       <CardList data={posts} />
     </MainContent>

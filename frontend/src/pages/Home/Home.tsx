@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import CardList from '../../components/CardList/CardList';
 import Carousel from '../../components/Carousel/Carousel';
-import { MainContent } from './styles';
+import { CardContent, MainContent } from './styles';
 import cards from '../../mock/cards.json';
+import SearchComponent from '../../components/SearchComponent/SearchComponent';
 
 const Home: React.FC = () => {
   const [highlights, setHighlights] = useState<any[]>([]);
@@ -24,8 +25,11 @@ const Home: React.FC = () => {
 
   return (
     <MainContent>
-      <Carousel items={highlights} />
-      <CardList data={cards.data} />
+      <SearchComponent />
+      <CardContent>
+        <Carousel items={highlights} />
+        <CardList data={cards.data} />
+      </CardContent>
     </MainContent>
   );
 }
