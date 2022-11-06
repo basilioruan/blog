@@ -18,14 +18,14 @@ const Posts: React.FC = () => {
       setTitle(sort);
       setPosts(cards.data.filter((card: { category: string | null, subject: string | null; }) => card.category === sort || card.subject === sort));
     }
-    if (searchWord) {
+    else if (searchWord) {
       setSearch(searchWord);
       setPosts(cards.data.filter((card: { title: string | null }) => card.title?.toLowerCase().includes(searchWord.toLowerCase())));
     }
-    if (posts.length === 0) {
+    else {
       setTitle('Não foram encontrados posts para essa categoria ou assunto');
     }
-  }, [posts, search, searchParams]);
+  }, [search, searchParams]);
 
   return (
     <MainContent>
