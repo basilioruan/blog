@@ -27,12 +27,14 @@ export const ButtonContainer = styled.div`
     align-items: center;
     background: transparent;
 
-    .icon:hover {
-      color: red; 
+    .youtube-title { 
+      margin: 0 5px;
+      color: white;
     }
 
-    .button-search {
-      margin-left: 28px;
+    .icon {
+      color: red;
     }
+
   `}
 `

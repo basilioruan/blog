@@ -64,12 +64,11 @@ const Header: React.FC = (args) => {
           </Nav>
           <NavbarText>
             <ButtonContainer>
-              <NavLink href="https://www.youtube.com/channel/UCjoYp6RSyBlIv85TPks1wKw" target="_blank">
+              <span>Veja também nosso canal no</span>
+              <NavLink className="nav-link" href="https://www.youtube.com/channel/UCjoYp6RSyBlIv85TPks1wKw" target="_blank">
+                <span className="youtube-title">YouTube</span>
                 <FaYoutube className="icon" />
               </NavLink>
-              <Button className="button-search" color="dark">
-                <FaSearch />
-              </Button>
             </ButtonContainer>
           </NavbarText>
         </Collapse>
