@@ -24,6 +24,10 @@ export const MainContent = styled.div`
       color: #696969;
       border-radius: 0 20px 20px 0;
 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
       &:hover {
         color: #000;
       }
