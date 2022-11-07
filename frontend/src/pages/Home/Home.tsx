@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CardList from '../../components/CardList/CardList';
-import Carousel from '../../components/Carousel/Carousel';
+import CarouselComponent from '../../components/CarouselComponent/CarouselComponent';
 import { CardContent, MainContent } from './styles';
 import cards from '../../mock/cards.json';
 import SearchComponent from '../../components/SearchComponent/SearchComponent';
@@ -27,7 +27,7 @@ const Home: React.FC = () => {
     <MainContent>
       <SearchComponent />
       <CardContent>
-        <Carousel items={highlights} />
+        <CarouselComponent items={highlights} />
         <CardList data={cards.data} />
       </CardContent>
     </MainContent>
