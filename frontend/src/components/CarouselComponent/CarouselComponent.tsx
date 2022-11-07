@@ -7,6 +7,7 @@ import {
   CarouselCaption,
 } from 'reactstrap';
 import { MainContent } from './styles';
+import { useNavigate } from 'react-router-dom';
 
 interface ICarouselProps {
   items: any[];
@@ -15,6 +16,7 @@ interface ICarouselProps {
 const CarouselComponent: React.FC<ICarouselProps> = ({ items }: ICarouselProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
+  const navigate = useNavigate();
 
   const next = () => {
     if (animating) return;
@@ -33,8 +35,12 @@ const CarouselComponent: React.FC<ICarouselProps> = ({ items }: ICarouselProps) 
     setActiveIndex(newIndex);
   };
 
+  const handleCarouselClick = () => {
+    const post = items[activeIndex];
+    navigate({pathname: '/post', search: `?post=${post.key}`});
+  }
+
   const slides = items.map((item) => {
-    console.log(item);
     return (
       <CarouselItem
         onExiting={() => setAnimating(true)}
@@ -42,10 +48,12 @@ const CarouselComponent: React.FC<ICarouselProps> = ({ items }: ICarouselProps) 
         key={item.src}
       >
         <img src={item.src} alt={item.altText} />
-        <CarouselCaption
-          captionText={item.caption}
-          captionHeader={item.caption}
-        />
+        <div className="image-post" onClick={() => handleCarouselClick()}>
+          <CarouselCaption
+            captionText={item.caption}
+            captionHeader={item.caption}
+          />
+        </div>
       </CarouselItem>
     );
   });

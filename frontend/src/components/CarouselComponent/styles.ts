@@ -9,5 +9,9 @@ export const MainContent = styled.div`
       width: 100%;
       border-radius: 30px;
     }
+
+    .image-post {
+      cursor: pointer;
+    }
   `}
 `
