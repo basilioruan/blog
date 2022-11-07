@@ -5,7 +5,7 @@ export const MainContent = styled.div`
     display: flex;
     justify-content: center;
 
-    margin-top: 36px;
+    padding-top: 36px;
 
     .search-input {
       border: 1px solid #696969;
