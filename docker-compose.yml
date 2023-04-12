@@ -1,0 +1,8 @@
+version: "3.7"
+services:
+  frontend:
+    image: basilioruan/blog_frontend
+    ports: 
+      - '80:3000'
+    stdin_open: true
+    tty: true
