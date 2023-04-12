@@ -19,8 +19,8 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping
-    public ResponseEntity save(@RequestBody PostDto response) {
-        Post postToSave = response.toModel();
+    public ResponseEntity save(@RequestBody PostDto request) {
+        Post postToSave = request.toModel();
 
         Post post = postService.save(postToSave);
 
