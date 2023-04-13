@@ -2,7 +2,6 @@ package com.github.ruanbasilio.blog.controllers;
 
 import com.github.ruanbasilio.blog.models.dtos.CategoryDto;
 import com.github.ruanbasilio.blog.models.entities.Category;
-import com.github.ruanbasilio.blog.models.entities.Subject;
 import com.github.ruanbasilio.blog.services.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -23,9 +23,9 @@ public class CategoryController {
     public ResponseEntity save (@RequestBody CategoryDto request) {
         Category categoryToSave = request.toModel();
 
-        Category category = categoryService.save(categoryToSave);
+        categoryService.save(categoryToSave);
 
-        return new ResponseEntity(category, HttpStatus.CREATED);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @PutMapping
@@ -39,22 +39,28 @@ public class CategoryController {
     public ResponseEntity getAllSubjects () {
         List<Category> categories = categoryService.getAllCategories();
 
-        return new ResponseEntity(categories, HttpStatus.OK);
+        return ResponseEntity.ok(categories);
     }
 
     @GetMapping(params = "id")
     public ResponseEntity getOneSubjects (@RequestParam("id") Long id) {
-        Optional<Category> category = categoryService.getOneCategory(id);
+        try {
+            Optional<Category> category = categoryService.getOneCategory(id);
 
-        if (category.isEmpty()) {
+            return ResponseEntity.ok(category);
+        } catch (NoSuchElementException e) {
             return ResponseEntity.noContent().build();
         }
-
-        return new ResponseEntity(category, HttpStatus.OK);
     }
 
     @DeleteMapping
-    public void delete (@RequestParam("id") Long id) {
-        categoryService.delete(id);
+    public ResponseEntity delete (@RequestParam("id") Long id) {
+        try {
+            categoryService.delete(id);
+
+            return ResponseEntity.ok().build();
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.noContent().build();
+        }
     }
 }
