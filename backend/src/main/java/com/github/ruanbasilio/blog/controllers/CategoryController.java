@@ -47,7 +47,7 @@ public class CategoryController {
         try {
             Optional<Category> category = categoryService.getOneCategory(id);
 
-            return ResponseEntity.ok(category);
+            return ResponseEntity.ok(category.get());
         } catch (NoSuchElementException e) {
             return ResponseEntity.noContent().build();
         }

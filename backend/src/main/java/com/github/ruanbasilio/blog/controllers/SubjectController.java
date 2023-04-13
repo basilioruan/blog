@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -23,9 +24,9 @@ public class SubjectController {
     public ResponseEntity save (@RequestBody SubjectDto request) {
         Subject subjectToSave = request.toModel();
 
-        Subject subject = subjectService.save(subjectToSave);
+        subjectService.save(subjectToSave);
 
-        return new ResponseEntity(subject, HttpStatus.CREATED);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @PutMapping
@@ -44,17 +45,23 @@ public class SubjectController {
 
     @GetMapping(params = "id")
     public ResponseEntity getOneSubjects (@RequestParam("id") Long id) {
-        Optional<Subject> subject = subjectService.getOneSubject(id);
+        try {
+            Optional<Subject> subject = subjectService.getOneSubject(id);
 
-        if (subject.isEmpty()) {
+            return ResponseEntity.ok(subject.get());
+        } catch (NoSuchElementException e) {
             return ResponseEntity.noContent().build();
         }
-
-        return new ResponseEntity(subject, HttpStatus.OK);
     }
 
     @DeleteMapping
-    public void delete (@RequestParam("id") Long id) {
-        subjectService.delete(id);
+    public ResponseEntity delete (@RequestParam("id") Long id) {
+        try {
+            subjectService.delete(id);
+
+            return ResponseEntity.ok().build();
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.noContent().build();
+        }
     }
 }

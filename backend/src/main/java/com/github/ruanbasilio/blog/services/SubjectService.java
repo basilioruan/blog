@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -27,10 +28,11 @@ public class SubjectService {
     }
 
     public void delete (Long id) {
-        Optional<Subject> subject = subjectRepository.findById(id);
-
-        if (!subject.isEmpty()) {
+        try {
+            Optional<Subject> subject = subjectRepository.findById(id);
             subjectRepository.delete(subject.get());
+        } catch (NoSuchElementException e) {
+            throw e;
         }
     }
 }
