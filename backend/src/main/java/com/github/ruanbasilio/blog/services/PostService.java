@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -27,10 +28,12 @@ public class PostService {
     }
 
     public void delete(Long id) {
-        Optional<Post> post = postRepository.findById(id);
+        try {
+            Optional<Post> post = getPost(id);
 
-        if (!post.isEmpty()) {
             postRepository.delete(post.get());
+        } catch (NoSuchElementException e) {
+            throw e;
         }
     }
 }

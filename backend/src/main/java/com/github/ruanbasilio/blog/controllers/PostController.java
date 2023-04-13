@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -22,9 +23,9 @@ public class PostController {
     public ResponseEntity save(@RequestBody PostDto request) {
         Post postToSave = request.toModel();
 
-        Post post = postService.save(postToSave);
+        postService.save(postToSave);
 
-        return new ResponseEntity(post, HttpStatus.CREATED);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -36,20 +37,24 @@ public class PostController {
 
     @GetMapping(params = "id")
     public ResponseEntity getOnePost (@RequestParam("id") Long id) {
-        Optional<Post> post = postService.getPost(id);
+        try {
+            Optional<Post> post = postService.getPost(id);
 
-        if (post.isEmpty()) {
+            return ResponseEntity.ok(post.get());
+        } catch (NoSuchElementException e) {
             return ResponseEntity.noContent().build();
         }
-
-        return ResponseEntity.ok(post.get());
     }
 
     @DeleteMapping
     public ResponseEntity deletePost(@RequestParam("id") Long id) {
-        postService.delete(id);
+        try {
+            postService.delete(id);
 
-        return ResponseEntity.ok().build();
+            return ResponseEntity.ok().build();
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.noContent().build();
+        }
     }
 
 }
