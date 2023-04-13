@@ -28,6 +28,13 @@ public class CategoryController {
         return new ResponseEntity(category, HttpStatus.CREATED);
     }
 
+    @PutMapping
+    public ResponseEntity edit (@RequestBody Category request) {
+        categoryService.save(request);
+
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping
     public ResponseEntity getAllSubjects () {
         List<Category> categories = categoryService.getAllCategories();
