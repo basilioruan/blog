@@ -28,6 +28,13 @@ public class PostController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
+    @PutMapping
+    public ResponseEntity edit(@RequestBody Post request) {
+        postService.save(request);
+
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping
     public ResponseEntity getAllPosts () {
         List<Post> posts = postService.getAllPosts();
