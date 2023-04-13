@@ -2,14 +2,15 @@ package com.github.ruanbasilio.blog.controllers;
 
 import com.github.ruanbasilio.blog.models.dtos.CategoryDto;
 import com.github.ruanbasilio.blog.models.entities.Category;
+import com.github.ruanbasilio.blog.models.entities.Subject;
 import com.github.ruanbasilio.blog.services.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("category")
@@ -25,5 +26,28 @@ public class CategoryController {
         Category category = categoryService.save(categoryToSave);
 
         return new ResponseEntity(category, HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity getAllSubjects () {
+        List<Category> categories = categoryService.getAllCategories();
+
+        return new ResponseEntity(categories, HttpStatus.OK);
+    }
+
+    @GetMapping(params = "id")
+    public ResponseEntity getOneSubjects (@RequestParam("id") Long id) {
+        Optional<Category> category = categoryService.getOneCategory(id);
+
+        if (category.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return new ResponseEntity(category, HttpStatus.OK);
+    }
+
+    @DeleteMapping
+    public void delete (@RequestParam("id") Long id) {
+        categoryService.delete(id);
     }
 }
