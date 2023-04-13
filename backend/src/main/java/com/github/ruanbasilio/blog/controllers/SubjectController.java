@@ -28,6 +28,13 @@ public class SubjectController {
         return new ResponseEntity(subject, HttpStatus.CREATED);
     }
 
+    @PutMapping
+    public ResponseEntity edit (@RequestBody Subject request) {
+        subjectService.save(request);
+
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping
     public ResponseEntity getAllSubjects () {
         List<Subject> subjects = subjectService.getAllSubjects();
