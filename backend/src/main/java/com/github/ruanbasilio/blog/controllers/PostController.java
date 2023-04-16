@@ -4,6 +4,10 @@ import com.github.ruanbasilio.blog.models.dtos.PostDto;
 import com.github.ruanbasilio.blog.models.entities.Post;
 import com.github.ruanbasilio.blog.services.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,8 +40,8 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity getAllPosts () {
-        List<Post> posts = postService.getAllPosts();
+    public ResponseEntity getAllPosts (@PageableDefault(page = 0, size = 1, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+        Page<Post> posts = postService.getAllPosts(pageable);
 
         return ResponseEntity.ok(posts);
     }
