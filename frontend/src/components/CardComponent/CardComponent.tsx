@@ -23,6 +23,8 @@ const CardComponent: React.FC<CardComponentProps> = ({ data }) => {
     navigate({pathname: '/post', search: `?post=${id}`});
   }, [navigate]);
 
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
   return (
     <MainContent>
       <div className="card">
@@ -46,7 +48,7 @@ const CardComponent: React.FC<CardComponentProps> = ({ data }) => {
                 className="mb-2 text-muted"
                 tag="h6"
               >
-                {data.category}
+                {data.category.name}
               </CardSubtitle>
             </div>
             <CardText>
@@ -57,7 +59,7 @@ const CardComponent: React.FC<CardComponentProps> = ({ data }) => {
                 Ler mais
               </Button>
               <span>
-              {data.date}
+              {new Date(data.date).toLocaleDateString()}
               </span>
             </footer>
           </CardBody>
