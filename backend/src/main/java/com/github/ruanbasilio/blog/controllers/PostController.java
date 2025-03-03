@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -40,14 +39,14 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity getAllPosts (@PageableDefault(page = 0, size = 1, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+    public ResponseEntity getAllPosts(@PageableDefault(sort = "date", direction = Sort.Direction.ASC) Pageable pageable) {
         Page<Post> posts = postService.getAllPosts(pageable);
 
         return ResponseEntity.ok(posts);
     }
 
     @GetMapping(params = "id")
-    public ResponseEntity getOnePost (@RequestParam("id") Long id) {
+    public ResponseEntity getOnePost(@RequestParam("id") Long id) {
         try {
             Optional<Post> post = postService.getPost(id);
 

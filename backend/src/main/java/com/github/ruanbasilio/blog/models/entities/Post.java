@@ -4,6 +4,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Data
@@ -28,9 +30,15 @@ public class Post {
     @Column(nullable = false)
     private LocalDate date;
 
-    @Column(nullable = true)
+    @Column
     private String image;
 
     @Column(columnDefinition = "boolean default false")
     private boolean highlight;
+
+    @Column(nullable = false, length = 100)
+    private String author;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String content;
 }
