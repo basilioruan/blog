@@ -15,12 +15,12 @@ export interface Post {
   description: string;
   subject: Subject;
   date: Date;
-  iamge: string;
+  image: string;
   highlight: boolean;
 }
 
 export interface Page {
-  content: any[];
+  content: Post[];
   page: number;
   empty: boolean;
   first: boolean;

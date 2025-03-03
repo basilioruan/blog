@@ -45,7 +45,7 @@ const CarouselComponent: React.FC<ICarouselProps> = ({ items }: ICarouselProps) 
       <CarouselItem
         onExiting={() => setAnimating(true)}
         onExited={() => setAnimating(false)}
-        key={item.src}
+        key={item.id}
       >
         <img src={item.src} alt={item.altText} />
         <div className="image-post" onClick={() => handleCarouselClick()}>
