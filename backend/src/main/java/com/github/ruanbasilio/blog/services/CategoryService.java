@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -27,10 +28,11 @@ public class CategoryService {
     }
 
     public void delete (Long id) {
-        Optional<Category> category = categoryRepository.findById(id);
-
-        if (!category.isEmpty()) {
+        try {
+            Optional<Category> category = categoryRepository.findById(id);
             categoryRepository.delete(category.get());
+        } catch (NoSuchElementException e) {
+            throw e;
         }
     }
 }

@@ -3,9 +3,12 @@ package com.github.ruanbasilio.blog.services;
 import com.github.ruanbasilio.blog.models.entities.Post;
 import com.github.ruanbasilio.blog.repositories.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -18,8 +21,8 @@ public class PostService {
         return postRepository.save(post);
     }
 
-    public List<Post> getAllPosts() {
-        return postRepository.findAll();
+    public Page<Post> getAllPosts(Pageable pageable) {
+        return postRepository.findAll(pageable);
     }
 
     public Optional<Post> getPost(Long id) {
@@ -27,10 +30,12 @@ public class PostService {
     }
 
     public void delete(Long id) {
-        Optional<Post> post = postRepository.findById(id);
+        try {
+            Optional<Post> post = getPost(id);
 
-        if (!post.isEmpty()) {
             postRepository.delete(post.get());
+        } catch (NoSuchElementException e) {
+            throw e;
         }
     }
 }
