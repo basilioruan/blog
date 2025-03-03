@@ -4,6 +4,12 @@ import com.github.ruanbasilio.blog.models.dtos.SubjectDto;
 import com.github.ruanbasilio.blog.models.entities.Subject;
 import com.github.ruanbasilio.blog.services.SubjectService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +30,9 @@ public class SubjectController {
     public ResponseEntity save (@RequestBody SubjectDto request) {
         Subject subjectToSave = request.toModel();
 
-        subjectService.save(subjectToSave);
+        Subject subject = subjectService.save(subjectToSave);
 
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity(subject, HttpStatus.CREATED);
     }
 
     @PutMapping

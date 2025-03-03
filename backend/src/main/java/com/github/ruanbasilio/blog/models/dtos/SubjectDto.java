@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 public class SubjectDto {
     private String name;
+
     public Subject toModel() {
         Subject subject = new Subject();
 
