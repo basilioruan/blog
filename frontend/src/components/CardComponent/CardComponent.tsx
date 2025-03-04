@@ -9,8 +9,8 @@ import {
 } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 
-import { CardProps } from '../../@types/Card';
 import { MainContent } from './styles';
+import { convertToPrBrStringDate } from '../../utils/date-utils';
 
 interface CardComponentProps {
   data: any;
@@ -22,8 +22,6 @@ const CardComponent: React.FC<CardComponentProps> = ({ data }) => {
   const handlePostClick = useCallback((id: string) => {
     navigate({pathname: '/post', search: `?post=${id}`});
   }, [navigate]);
-
-  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
   return (
     <MainContent>
@@ -59,7 +57,7 @@ const CardComponent: React.FC<CardComponentProps> = ({ data }) => {
                 Ler mais
               </Button>
               <span>
-              {new Date(data.date).toLocaleDateString()}
+              {convertToPrBrStringDate(data.date)}
               </span>
             </footer>
           </CardBody>

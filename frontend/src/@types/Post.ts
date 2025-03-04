@@ -1,26 +1,28 @@
-export interface Category {
+export interface ICategory {
   id?: number | string;
   name: string;
 }
 
-export interface Subject {
+export interface ISubject {
   id?: number | string;
   name: string;
 }
 
-export interface Post {
+export interface IPost {
   id?: number | string;
   title: string;
-  category: Category;
+  category: ICategory;
   description: string;
-  subject: Subject;
+  subject: ISubject;
   date: Date;
-  image: string;
+  image?: string;
   highlight: boolean;
+  content: string;
+  author: string;
 }
 
-export interface Page {
-  content: Post[];
+export interface IPage {
+  content: IPost[];
   page: number;
   empty: boolean;
   first: boolean;

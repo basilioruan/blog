@@ -48,9 +48,9 @@ public class PostController {
     @GetMapping(params = "id")
     public ResponseEntity getOnePost(@RequestParam("id") Long id) {
         try {
-            Optional<Post> post = postService.getPost(id);
+            Post post = postService.getPost(id);
 
-            return ResponseEntity.ok(post.get());
+            return ResponseEntity.ok(post);
         } catch (NoSuchElementException e) {
             return ResponseEntity.noContent().build();
         }

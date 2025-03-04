@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
 const config: AxiosRequestConfig = {
-  baseURL: "http://localhost:8080/",
+  baseURL: "http://localhost:8080/api/",
   validateStatus: status => {
     return status >= 200 && status <= 302;
   }

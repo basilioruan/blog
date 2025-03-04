@@ -3,6 +3,7 @@ package com.github.ruanbasilio.blog.services;
 import com.github.ruanbasilio.blog.models.entities.Post;
 import com.github.ruanbasilio.blog.repositories.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,25 +18,25 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    public Post save(Post post) {
-        return postRepository.save(post);
+    public void save(Post post) {
+        postRepository.save(post);
     }
 
     public Page<Post> getAllPosts(Pageable pageable) {
         return postRepository.findAll(pageable);
     }
 
-    public Optional<Post> getPost(Long id) {
-        return postRepository.findById(id);
+    public Post getPost(Long id) {
+        Optional<Post> post = postRepository.findById(id);
+
+        if (post.isEmpty()) {
+            throw new NoSuchElementException();
+        }
+
+        return post.get();
     }
 
     public void delete(Long id) {
-        try {
-            Optional<Post> post = getPost(id);
-
-            postRepository.delete(post.get());
-        } catch (NoSuchElementException e) {
-            throw e;
-        }
+        postRepository.deleteById(id);
     }
 }

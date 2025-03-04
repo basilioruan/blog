@@ -1,8 +1,13 @@
 import { AxiosResponse } from "axios";
 import { api } from "./api/api";
+import { IPage, IPost } from "../@types/Post";
 
-export async function getAllPosts() {
-  const response: AxiosResponse = await api.get('/api/post/?page=0');
+const POST_URL = 'post';
 
-  return response;
+export async function getAllPosts(): Promise<AxiosResponse<IPage>> {
+  return await api.get<IPage>(`${POST_URL}/?page=0`);
+}
+
+export async function getPostById(id: number): Promise<AxiosResponse<IPost>> {
+  return await api.get<IPost>(`${POST_URL}?id=${id}`);
 }

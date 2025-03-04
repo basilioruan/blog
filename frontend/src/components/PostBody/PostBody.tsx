@@ -2,7 +2,7 @@ import React from 'react';
 import { MainContent, TextContainer } from './styles';
 
 interface IPostBodyProps {
-  image: string;
+  image?: string;
   content: string;
 }
 

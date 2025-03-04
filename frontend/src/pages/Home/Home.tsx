@@ -4,12 +4,12 @@ import CarouselComponent from '../../components/CarouselComponent/CarouselCompon
 import { CardContent, MainContent } from './styles';
 import cards from '../../mock/cards.json';
 import SearchComponent from '../../components/SearchComponent/SearchComponent';
-import { Post } from '../../@types/Post';
+import { IPost } from '../../@types/Post';
 import { getAllPosts } from '../../services/PostRequests';
 
 const Home: React.FC = () => {
   const [highlights, setHighlights] = useState<any[]>([]);
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<IPost[]>([]);
 
   useEffect(() => {
     (async () => {
