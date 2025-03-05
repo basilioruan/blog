@@ -17,13 +17,13 @@ import { FaYoutube } from 'react-icons/fa';
 import { MainContent, ButtonContainer } from './styles';
 import logo from '../../assets/logo.jpeg';
 import { getAllCategory } from '../../services/CategoryRequests';
-import { ICategory, ISubject } from '../../@types/Post';
+import { IPairIdName } from '../../@types/Post';
 import { getAllSubject } from '../../services/SubjectRequests';
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [categories, setCategories] = useState<ICategory[]>([]);
-  const [subjects, setSubjects] = useState<ISubject[]>([]);
+  const [categories, setCategories] = useState<IPairIdName[]>([]);
+  const [subjects, setSubjects] = useState<IPairIdName[]>([]);
   const toggle = () => setIsOpen(!isOpen);
   const navigate = useNavigate();
 

@@ -1,9 +1,4 @@
-export interface ICategory {
-  id?: number | string;
-  name: string;
-}
-
-export interface ISubject {
+export interface IPairIdName {
   id?: number | string;
   name: string;
 }
@@ -11,9 +6,9 @@ export interface ISubject {
 export interface IPost {
   id?: number | string;
   title: string;
-  category: ICategory;
+  category: IPairIdName;
   description: string;
-  subject: ISubject;
+  subject: IPairIdName;
   date: Date;
   image?: string;
   highlight: boolean;
