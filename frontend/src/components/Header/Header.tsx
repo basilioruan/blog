@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Collapse,
@@ -11,17 +11,31 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  NavbarText,
-  Button
+  NavbarText
 } from 'reactstrap';
-import { FaSearch, FaYoutube } from 'react-icons/fa';
+import { FaYoutube } from 'react-icons/fa';
 import { MainContent, ButtonContainer } from './styles';
 import logo from '../../assets/logo.jpeg';
+import { getAllCategory } from '../../services/CategoryRequests';
+import { ICategory, ISubject } from '../../@types/Post';
+import { getAllSubject } from '../../services/SubjectRequests';
 
-const Header: React.FC = (args) => {
+const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [categories, setCategories] = useState<ICategory[]>([]);
+  const [subjects, setSubjects] = useState<ISubject[]>([]);
   const toggle = () => setIsOpen(!isOpen);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    (async() => {
+      const categoryResponse = await getAllCategory();
+      setCategories(categoryResponse.data);
+
+      const subjectResponse = await getAllSubject();
+      setSubjects(subjectResponse.data);
+    })();
+  }, []);
 
   const handleOptionsClick = useCallback((path: string, search: string) => {
     navigate({pathname: path, search: `?sort=${search}`});
@@ -45,9 +59,9 @@ const Header: React.FC = (args) => {
                 Categorias
               </DropdownToggle>
               <DropdownMenu dark>
-                <DropdownItem onClick={() => handleOptionsClick('/posts', 'Dicas')}>Dicas</DropdownItem>
-                <DropdownItem onClick={() => handleOptionsClick('/posts', 'Resolvendo questões')}>Resolvendo questões</DropdownItem>
-                <DropdownItem onClick={() => handleOptionsClick('/posts', 'Slides')}>Slides</DropdownItem>
+                {categories.map((category) =>
+                  <DropdownItem onClick={() => handleOptionsClick('/posts', category.name)}>{category.name}</DropdownItem>
+                )}
               </DropdownMenu>
             </UncontrolledDropdown>
             <UncontrolledDropdown nav inNavbar>
@@ -55,10 +69,9 @@ const Header: React.FC = (args) => {
                 Assuntos
               </DropdownToggle>
               <DropdownMenu dark>
-                <DropdownItem onClick={() => handleOptionsClick('/posts', 'Direito administrativo')}>Direito administrativo</DropdownItem>
-                <DropdownItem onClick={() => handleOptionsClick('/posts', 'Direito constitucional')}>Direito constitucional</DropdownItem>
-                <DropdownItem onClick={() => handleOptionsClick('/posts', 'Direito penal')}>Direito penal</DropdownItem>
-                <DropdownItem onClick={() => handleOptionsClick('/posts', 'Legislação extravagante')}>Legislação extravagante</DropdownItem>
+                {subjects.map((subject) =>
+                  <DropdownItem onClick={() => handleOptionsClick('/posts', subject.name)}>{subject.name}</DropdownItem>
+                )}
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
