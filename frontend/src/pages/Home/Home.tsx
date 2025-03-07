@@ -6,16 +6,19 @@ import cards from '../../mock/cards.json';
 import SearchComponent from '../../components/SearchComponent/SearchComponent';
 import { IPost } from '../../@types/Post';
 import { getAllPosts } from '../../services/PostRequests';
+import Loader from '../../components/LoaderComponent/Loader';
 
 const Home: React.FC = () => {
   const [highlights, setHighlights] = useState<any[]>([]);
   const [posts, setPosts] = useState<IPost[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     (async () => {
       const { data } = await getAllPosts();
 
       setPosts(data.content);
+      setLoading(false);
     })();
 
     const highlightsCards = cards.data.filter(card => card.highlight);
@@ -30,16 +33,20 @@ const Home: React.FC = () => {
         }
       })
     );
+
   }, []);
 
   return (
-    <MainContent>
-      <SearchComponent />
-      <CardContent>
-        <CarouselComponent items={highlights} />
-        <CardList data={posts} />
-      </CardContent>
-    </MainContent>
+    <>
+      {loading && <Loader />}
+      <MainContent>
+        <SearchComponent />
+        <CardContent>
+          <CarouselComponent items={highlights} />
+          <CardList data={posts} />
+        </CardContent>
+      </MainContent>
+    </>
   );
 }
 

@@ -70,7 +70,7 @@ const CarouselComponent: React.FC<ICarouselProps> = ({ items }: ICarouselProps) 
           activeIndex={activeIndex}
           onClickHandler={goToIndex}
         />
-        {slides}
+          {slides}
         <CarouselControl
           direction="prev"
           directionText="Previous"

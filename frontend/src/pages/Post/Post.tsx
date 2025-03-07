@@ -6,10 +6,12 @@ import RelatedPosts from '../../components/RelatedPosts/RelatedPosts';
 import { HeaderContainer, MainContent, BodyContainer, FooterContainer } from './styles';
 import { getPostById } from '../../services/PostRequests';
 import { IPost } from '../../@types/Post';
+import Loader from '../../components/LoaderComponent/Loader';
 
 const Post: React.FC = () => {
   const [searchParams] = useSearchParams();
   const [post, setPost] = useState<IPost>({} as IPost);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const postId = Number(searchParams.get('post'));
@@ -17,14 +19,13 @@ const Post: React.FC = () => {
       (async() => {
         const response = await getPostById(postId);
         setPost(response.data);
+        setLoading(false);
       })();
     }
   }, [searchParams]);
-  
-  if (!post.id) {
-    return (
-      <div>Loading...</div>
-    );
+
+  if (loading || !post.id) {
+    return <Loader />
   }
 
   return (

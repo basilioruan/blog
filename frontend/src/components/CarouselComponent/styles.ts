@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 export const MainContent = styled.div`
   ${() => css`
-    width: 54%;
+    width: 55%;
     margin-top: 48px; 
 
     img {
