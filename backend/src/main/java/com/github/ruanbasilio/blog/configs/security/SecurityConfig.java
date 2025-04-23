@@ -1,4 +1,4 @@
-package com.github.ruanbasilio.blog.configs;
+package com.github.ruanbasilio.blog.configs.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
