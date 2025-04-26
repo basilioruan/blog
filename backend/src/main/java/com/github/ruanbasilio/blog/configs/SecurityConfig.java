@@ -1,5 +1,6 @@
-package com.github.ruanbasilio.blog.configs.security;
+package com.github.ruanbasilio.blog.configs;
 
+import com.github.ruanbasilio.blog.security.CustomAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -21,36 +22,35 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, CustomAuthenticationProvider customAuthenticationProvider) throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(Customizer.withDefaults())
+                .authenticationProvider(customAuthenticationProvider)
                 .authorizeHttpRequests(authorize -> {
                     authorize.regexMatchers("/login/*").permitAll();
-                    authorize.regexMatchers("/category/*").hasRole("ADMIN");
-                    authorize.regexMatchers("/post/*").hasRole("USER");
                     authorize.anyRequest().authenticated();
                 })
                 .build();
     }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails commonUser = User.builder()
-                .username("user")
-                .password(passwordEncoder().encode("123"))
-                .roles("USER")
-                .build();
-
-        UserDetails adminUser = User.builder()
-                .username("admin")
-                .password(passwordEncoder().encode("admin"))
-                .roles("ADMIN")
-                .build();
-
-        return new InMemoryUserDetailsManager(commonUser, adminUser);
-    }
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        UserDetails commonUser = User.builder()
+//                .username("user")
+//                .password(passwordEncoder().encode("123"))
+//                .roles("USER")
+//                .build();
+//
+//        UserDetails adminUser = User.builder()
+//                .username("admin")
+//                .password(passwordEncoder().encode("admin"))
+//                .roles("ADMIN")
+//                .build();
+//
+//        return new InMemoryUserDetailsManager(commonUser, adminUser);
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

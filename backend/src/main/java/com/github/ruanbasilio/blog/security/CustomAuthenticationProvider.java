@@ -1,0 +1,51 @@
+package com.github.ruanbasilio.blog.security;
+
+import com.github.ruanbasilio.blog.models.entities.BlogUser;
+import com.github.ruanbasilio.blog.services.BlogUserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
+
+import java.util.Objects;
+
+@Component
+@RequiredArgsConstructor
+public class CustomAuthenticationProvider implements AuthenticationProvider {
+
+    private final BlogUserService blogUserService;
+
+    private final PasswordEncoder passwordEncoder;
+
+    @Override
+    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        String email = authentication.getName();
+
+        BlogUser blogUser = this.blogUserService.getUserByEmail(email);
+        if (Objects.isNull(blogUser)) {
+            throw this.getNotFindUserException();
+        }
+
+        String rawPassword = authentication.getCredentials().toString();
+        boolean isCorrectPassword = passwordEncoder.matches(rawPassword, blogUser.getPassword());
+
+        if (Boolean.TRUE.equals(isCorrectPassword)) {
+            return new CustomAuthentication(blogUser);
+        }
+
+        throw getNotFindUserException();
+    }
+
+    private UsernameNotFoundException getNotFindUserException() {
+        return new UsernameNotFoundException("Incorrect username or password. Please try again.");
+    }
+
+    @Override
+    public boolean supports(Class<?> authentication) {
+        return authentication.isAssignableFrom(UsernamePasswordAuthenticationToken.class);
+    }
+}

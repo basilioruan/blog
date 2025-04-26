@@ -1,10 +1,11 @@
-package com.github.ruanbasilio.blog.configs.security;
+package com.github.ruanbasilio.blog.security;
 
 import com.github.ruanbasilio.blog.models.entities.BlogUser;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collection;
 import java.util.List;
@@ -16,8 +17,8 @@ public class CustomAuthentication implements Authentication {
     private final BlogUser blogUser;
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+    public Collection<GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(this.blogUser.getRole().name()));
     }
 
     @Override
@@ -42,11 +43,11 @@ public class CustomAuthentication implements Authentication {
 
     @Override
     public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-
+        throw new IllegalArgumentException("Already authenticate");
     }
 
     @Override
     public String getName() {
-        return blogUser.getName();
+        return blogUser.getEmail();
     }
 }
