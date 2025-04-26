@@ -25,9 +25,7 @@ public class SecurityConfig {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(Customizer.withDefaults())
-                .formLogin(configurer -> {
-                    configurer.loginPage("/login");
-                })
+                .formLogin(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> {
                     authorize.regexMatchers("/login/*").permitAll();
                     authorize.regexMatchers("/category/*").hasRole("ADMIN");
