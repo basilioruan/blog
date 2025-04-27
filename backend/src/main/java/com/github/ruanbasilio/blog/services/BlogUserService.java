@@ -42,6 +42,14 @@ public class BlogUserService {
         return this.blogUserRepository.save(blogUserToSave);
     }
 
+    public BlogUser update(BlogUser user) {
+        if (Objects.isNull(user)) {
+            return null;
+        }
+
+        return this.blogUserRepository.save(user);
+    }
+
     public BlogUser getUserByEmail(String email) {
         if (Objects.isNull(email) || email.isEmpty()) {
             return null;

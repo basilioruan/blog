@@ -1,6 +1,7 @@
 package com.github.ruanbasilio.blog.configs;
 
 import com.github.ruanbasilio.blog.security.CustomAuthenticationProvider;
+import com.github.ruanbasilio.blog.security.SocialLoginSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -8,12 +9,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -22,7 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, CustomAuthenticationProvider customAuthenticationProvider) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, CustomAuthenticationProvider customAuthenticationProvider, SocialLoginSuccessHandler socialLoginSuccessHandler) throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(Customizer.withDefaults())
@@ -32,6 +29,7 @@ public class SecurityConfig {
                     authorize.regexMatchers("/login/*").permitAll();
                     authorize.anyRequest().authenticated();
                 })
+                .oauth2Login(oauth2 -> oauth2.successHandler(socialLoginSuccessHandler))
                 .build();
     }
 

@@ -1,9 +1,11 @@
 package com.github.ruanbasilio.blog.models.dtos;
 
 import com.github.ruanbasilio.blog.models.entities.BlogUser;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class BlogUserDto {
 
     private Long id;
