@@ -1,42 +1,57 @@
-import React from 'react';
+import React, { ChangeEvent, ChangeEventHandler, useState } from 'react';
 import { Form, FormGroup, Input, Label } from 'reactstrap';
 import { MainContent } from './styles';
 import { IoEnterOutline } from 'react-icons/io5';
+import { FcGoogle } from 'react-icons/fc';
+import { useForm } from 'react-hook-form';
+import { FormInput } from '../FormInput/styles';
+
+type FormInputs = {
+  email: string,
+  password: string
+}
 
 const LoginCard: React.FC = () => {
+
+  const { register, handleSubmit, formState: { errors } } = useForm<FormInputs>();
+
+  const onSubmit = (event: any) => {
+    console.log(event);
+  }
+
   return (
     <MainContent>
       <div className="header">
         <h4>Login</h4>
       </div>
       <div className="body">
-        <Form>
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <FormGroup>
-            <Label for="exampleEmail">
-              Usuário
+            <Label for="email">
+              Email
             </Label>
-            <Input
-              id="exampleEmail"
-              name="email"
-              placeholder="Digite o nome de usuário"
-              type="email"
-            />
+            <FormInput id='email' type="text" {...register("email", { required: true })} error={!!errors.email} />
+              {errors.email && <span className='text-danger login-social-text'>This field is required</span>}
           </FormGroup>
           <FormGroup>
-            <Label for="examplePassword">
+            <Label for="password">
               Senha
             </Label>
-            <Input
-              id="examplePassword"
-              name="password"
-              placeholder="Digite a senha"
-              type="password"
-            />
+            <FormInput id='password' type="password" {...register("password", { required: true })} error={!!errors.password} />
+              {errors.password && <span className='text-danger login-social-text'>This field is required</span>}
           </FormGroup>
-          <button className="login-btn">
+          <button className="login-btn" type='submit'>
             <span className="icon"><IoEnterOutline /></span>
             Entrar
           </button>
+          <button className="sign-up-btn">
+            Registre-se
+          </button>
+          <hr />
+          <span className='login-social-text'>Ou você pode logar com:</span>
+          <div className='d-flex justify-content-center login-social'>
+            <a href=''><FcGoogle /></a>
+          </div>
         </Form>
       </div>
     </MainContent>

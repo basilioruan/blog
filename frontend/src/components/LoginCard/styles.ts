@@ -43,6 +43,28 @@ export const MainContent = styled.div`
           margin-right: 0.4rem;
         }
       }
+
+      .sign-up-btn {
+        width: 100%;
+
+        margin-top: 0.8rem;
+        padding: 0.5rem;
+
+        border-radius: 1rem;
+        border: 1px solid #363636;
+
+        background-color: #f5f5f5;
+
+        color: #363636;
+      }
+
+      .login-social {
+        font-size: 1.75rem;
+      }
+
+      .login-social-text {
+        font-size: 0.75rem;
+      }
     }
   `}
 `
