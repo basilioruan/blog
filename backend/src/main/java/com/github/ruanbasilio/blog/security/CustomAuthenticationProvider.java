@@ -24,16 +24,20 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String email = authentication.getName();
+        String rawPassword = authentication.getCredentials().toString();
 
+        return authentication(email, rawPassword);
+    }
+
+    public Authentication authentication(String email, String rawPassword) {
         BlogUser blogUser = this.blogUserService.getUserByEmail(email);
         if (Objects.isNull(blogUser)) {
             throw this.getNotFindUserException();
         }
 
-        String rawPassword = authentication.getCredentials().toString();
         boolean isCorrectPassword = passwordEncoder.matches(rawPassword, blogUser.getPassword());
 
-        if (Boolean.TRUE.equals(isCorrectPassword)) {
+        if (isCorrectPassword) {
             return new CustomAuthentication(blogUser);
         }
 
