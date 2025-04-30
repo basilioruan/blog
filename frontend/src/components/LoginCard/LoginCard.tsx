@@ -5,6 +5,8 @@ import { IoEnterOutline } from 'react-icons/io5';
 import { FcGoogle } from 'react-icons/fc';
 import { useForm } from 'react-hook-form';
 import { FormInput } from '../FormInput/styles';
+import { AxiosError, AxiosResponse } from 'axios';
+import { signIn } from '../../services/AuthRequests';
 
 type FormInputs = {
   email: string,
@@ -14,9 +16,24 @@ type FormInputs = {
 const LoginCard: React.FC = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormInputs>();
+  const [errorMessage, setErrorMessage] = useState();
 
-  const onSubmit = (event: any) => {
-    console.log(event);
+  const onSubmit = async (event: FormInputs) => {
+    const email: string = event.email;
+    const password: string = event.password;
+
+    try {
+      const response: AxiosResponse = await signIn(email, password);
+
+      if (response.status === 200) {
+        setErrorMessage(undefined);
+      }
+    } 
+    catch(error: any) {
+      if (error?.response.status === 401) {
+        setErrorMessage(error?.response.data);
+      }
+    }
   }
 
   return (
@@ -40,6 +57,7 @@ const LoginCard: React.FC = () => {
             <FormInput id='password' type="password" {...register("password", { required: true })} error={!!errors.password} />
               {errors.password && <span className='text-danger login-social-text'>This field is required</span>}
           </FormGroup>
+          {errorMessage && <span className='text-danger login-social-text'>{errorMessage}</span>}
           <button className="login-btn" type='submit'>
             <span className="icon"><IoEnterOutline /></span>
             Entrar

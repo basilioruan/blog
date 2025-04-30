@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 export const MainContent = styled.div`
   ${() => css`
-    width: 30%;
+    width: 450px;
 
     margin: 3rem 0;
 
@@ -65,6 +65,10 @@ export const MainContent = styled.div`
       .login-social-text {
         font-size: 0.75rem;
       }
+    }
+
+    Form {
+      width: 300px;
     }
   `}
 `
