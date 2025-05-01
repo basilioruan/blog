@@ -1,8 +1,8 @@
 import React from 'react';
-import LoginCard from '../../components/LoginCard/LoginCard';
+import LoginCard from '../../../components/LoginCard/LoginCard';
 import { MainContent } from './styles';
 
-const Login: React.FC = () => {
+const SignIn: React.FC = () => {
   return (
     <MainContent>
       <LoginCard />
@@ -10,4 +10,4 @@ const Login: React.FC = () => {
   )
 }
 
-export default Login;
+export default SignIn;

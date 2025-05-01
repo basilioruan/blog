@@ -29,15 +29,13 @@ const LoginCard: React.FC = () => {
     try {
       const response: AxiosResponse = await signIn(email, password);
 
-      console.log(response);
-
       if (response.status === 200) {
         setErrorMessage(undefined);
         window.sessionStorage.setItem(SessionEnum.AUTH, `${encryptWithPublicKey(email)};${encryptWithPublicKey(password)}`);
         navigate('/');
       }
-    } 
-    catch(error: any) {
+    }
+    catch (error: any) {
       if (error?.response.status === 401) {
         setErrorMessage(error?.response.data);
       }
@@ -56,21 +54,21 @@ const LoginCard: React.FC = () => {
               Email
             </Label>
             <FormInput id='email' type="text" {...register("email", { required: true })} error={!!errors.email} />
-              {errors.email && <span className='text-danger login-social-text'>This field is required</span>}
+            {errors.email && <span className='text-danger login-social-text'>This field is required</span>}
           </FormGroup>
           <FormGroup>
             <Label for="password">
               Senha
             </Label>
             <FormInput id='password' type="password" {...register("password", { required: true })} error={!!errors.password} />
-              {errors.password && <span className='text-danger login-social-text'>This field is required</span>}
+            {errors.password && <span className='text-danger login-social-text'>This field is required</span>}
           </FormGroup>
           {errorMessage && <span className='text-danger login-social-text'>{errorMessage}</span>}
           <button className="login-btn" type='submit'>
             <span className="icon"><IoEnterOutline /></span>
             Entrar
           </button>
-          <button className="sign-up-btn">
+          <button className="sign-up-btn" onClick={() => navigate("/sign-up")}>
             Registre-se
           </button>
           <hr />
