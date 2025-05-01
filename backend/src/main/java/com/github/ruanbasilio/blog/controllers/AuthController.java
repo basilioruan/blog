@@ -5,7 +5,6 @@ import com.github.ruanbasilio.blog.services.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,11 +21,11 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping
-    public ResponseEntity login(@RequestBody LoginCredentialsDto dto, HttpSession httpSession, Authentication authentication) {
+    public ResponseEntity login(@RequestBody LoginCredentialsDto dto, HttpSession httpSession) {
         try {
             this.authService.authenticate(dto.getEmail(), dto.getPassword(), httpSession);
 
-            return ResponseEntity.ok().body("Login Sucessful!");
+            return ResponseEntity.ok().build();
         } catch (UsernameNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
         } catch (Exception ex) {

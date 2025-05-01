@@ -14,10 +14,7 @@ public class AuthService {
     private final CustomAuthenticationProvider customAuthenticationProvider;
 
     public Authentication authenticate(String email, String password, HttpSession session) {
-        Authentication authentication = this.customAuthenticationProvider.authentication(email, password);
-        session.setAttribute("user", email);
-
-        return authentication;
+        return this.customAuthenticationProvider.authentication(email, password);
     }
 
 }
