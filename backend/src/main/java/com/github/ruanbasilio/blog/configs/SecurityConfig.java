@@ -30,11 +30,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(Customizer.withDefaults())
                 .authenticationProvider(customAuthenticationProvider)
-                .authorizeHttpRequests(authorize -> {
-                    authorize.regexMatchers("/login/*").permitAll();
-                    authorize.regexMatchers("/category/*").permitAll();
-                    authorize.anyRequest().authenticated();
-                })
+                .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
                 .oauth2Login(oauth2 -> oauth2.successHandler(socialLoginSuccessHandler))
                 .cors(Customizer.withDefaults())
                 .build();

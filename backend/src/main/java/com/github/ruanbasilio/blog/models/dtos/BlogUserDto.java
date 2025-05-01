@@ -1,11 +1,15 @@
 package com.github.ruanbasilio.blog.models.dtos;
 
 import com.github.ruanbasilio.blog.models.entities.BlogUser;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class BlogUserDto {
 
     private Long id;
