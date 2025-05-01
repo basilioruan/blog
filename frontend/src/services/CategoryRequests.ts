@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { IPairIdName } from "../@types/Post";
-import { api } from "./api/api";
+import api from "./api/api";
 
 const CATEGORY_URL = 'category';
 

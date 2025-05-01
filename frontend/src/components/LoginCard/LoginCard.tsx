@@ -7,6 +7,9 @@ import { useForm } from 'react-hook-form';
 import { FormInput } from '../FormInput/styles';
 import { AxiosError, AxiosResponse } from 'axios';
 import { signIn } from '../../services/AuthRequests';
+import { useNavigate } from 'react-router';
+import SessionEnum from '../../services/api/SessionEnum';
+import { encryptWithPublicKey } from '../../utils/criptUtils';
 
 type FormInputs = {
   email: string,
@@ -17,6 +20,7 @@ const LoginCard: React.FC = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormInputs>();
   const [errorMessage, setErrorMessage] = useState();
+  const navigate = useNavigate();
 
   const onSubmit = async (event: FormInputs) => {
     const email: string = event.email;
@@ -25,8 +29,12 @@ const LoginCard: React.FC = () => {
     try {
       const response: AxiosResponse = await signIn(email, password);
 
+      console.log(response);
+
       if (response.status === 200) {
         setErrorMessage(undefined);
+        window.sessionStorage.setItem(SessionEnum.AUTH, `${encryptWithPublicKey(email)};${encryptWithPublicKey(password)}`);
+        navigate('/');
       }
     } 
     catch(error: any) {

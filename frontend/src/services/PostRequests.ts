@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { api } from "./api/api";
+import api from "./api/api";
 import { IPage, IPost } from "../@types/Post";
 
 const POST_URL = 'post';

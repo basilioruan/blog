@@ -10,7 +10,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 import { MainContent } from './styles';
-import { convertToPrBrStringDate } from '../../utils/date-utils';
+import { convertToPrBrStringDate } from '../../utils/dateUtils';
 
 interface CardComponentProps {
   data: any;

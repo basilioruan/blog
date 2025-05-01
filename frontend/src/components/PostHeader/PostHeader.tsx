@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MainContent, Tag } from './styles';
-import { convertToPrBrStringDate } from '../../utils/date-utils';
+import { convertToPrBrStringDate } from '../../utils/dateUtils';
 
 interface IPostHeaderProps {
   title: string;
