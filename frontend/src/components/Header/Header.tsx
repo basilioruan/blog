@@ -11,7 +11,8 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  NavbarText
+  NavbarText,
+  Button
 } from 'reactstrap';
 import { FaYoutube } from 'react-icons/fa';
 import { MainContent, ButtonContainer } from './styles';
@@ -28,7 +29,7 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       const categoryResponse = await getAllCategory();
       setCategories(categoryResponse.data);
 
@@ -37,8 +38,12 @@ const Header: React.FC = () => {
     })();
   }, []);
 
-  const handleOptionsClick = useCallback((path: string, search: string) => {
-    navigate({pathname: path, search: `?sort=${search}`});
+  const handleOptionsClick = useCallback((path: string, search?: string) => {
+    let searchString;
+    if (search) {
+      searchString = `?sort=${search}`;
+    }
+    navigate({ pathname: path, search: searchString });
   }, [navigate]);
 
   return (
@@ -84,6 +89,11 @@ const Header: React.FC = () => {
               </NavLink>
             </ButtonContainer>
           </NavbarText>
+          <Navbar className='ms-3'>
+            <Button outline onClick={() => handleOptionsClick('/sign-in')}>
+              Entrar
+            </Button>
+          </Navbar>
         </Collapse>
       </Navbar>
     </MainContent>
