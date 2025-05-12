@@ -45,7 +45,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     }
 
     private UsernameNotFoundException getNotFindUserException() {
-        return new UsernameNotFoundException("Incorrect username or password. Please try again.");
+        return new UsernameNotFoundException("E-mail ou senha incorreto. Por favor tente novamente.");
     }
 
     @Override
