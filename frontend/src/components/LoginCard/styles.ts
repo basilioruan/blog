@@ -62,7 +62,7 @@ export const MainContent = styled.div`
         color: #363636;
 
         &:hover {
-          background-color: #ededed;
+          background-color:#dbdbdb;
         }
       }
 

@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router';
 import SessionEnum from '../../services/api/SessionEnum';
 import { encryptWithPublicKey } from '../../utils/criptUtils';
 import { FieldsLabels } from '../../utils/fieldsLabel';
+import { validate } from 'email-validator';
 
 type FormInputs = {
   email: string,
@@ -21,13 +22,20 @@ const LoginCard: React.FC = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormInputs>();
   const [errorMessage, setErrorMessage] = useState();
+  const [isEmailValid, setIsEmailValid] = useState(true);
   const navigate = useNavigate();
 
   const onSubmit = async (event: FormInputs) => {
     const email: string = event.email;
     const password: string = event.password;
 
+    if (!validate(email)) {
+      setIsEmailValid(false);
+      return;
+    }
+
     try {
+      setIsEmailValid(true);
       const response: AxiosResponse = await signIn(email, password);
 
       if (response.status === 200) {
@@ -43,9 +51,9 @@ const LoginCard: React.FC = () => {
     }
   }
 
-  const getRequiredFieldMessage = (): ReactNode => {
+  const getFieldErrorMessage = (message: string): ReactNode => {
     return (
-      <span className='text-danger login-social-text'> {FieldsLabels.REQUIRED_FIELD} </span>
+      <span className='text-danger login-social-text'> {message} </span>
     );
   }
 
@@ -61,16 +69,17 @@ const LoginCard: React.FC = () => {
               Email
             </Label>
             <FormInput id='email' type="text" {...register("email", { required: true })} error={!!errors.email} />
-            {errors.email && getRequiredFieldMessage()}
+            {errors.email && getFieldErrorMessage(FieldsLabels.REQUIRED_FIELD)}
+            {!isEmailValid && getFieldErrorMessage(FieldsLabels.EMAIL_INVALID)}
           </FormGroup>
           <FormGroup>
             <Label for="password">
               Senha
             </Label>
             <FormInput id='password' type="password" {...register("password", { required: true })} error={!!errors.password} />
-            {errors.password && getRequiredFieldMessage()}
+            {errors.password && getFieldErrorMessage(FieldsLabels.REQUIRED_FIELD)}
           </FormGroup>
-          {errorMessage && <span className='text-danger login-social-text'>{errorMessage}</span>}
+          {errorMessage && getFieldErrorMessage(errorMessage)}
           <button className="login-btn" type='submit'>
             <span className="icon"><IoEnterOutline /></span>
             Entrar
