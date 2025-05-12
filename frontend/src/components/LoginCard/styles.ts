@@ -42,6 +42,10 @@ export const MainContent = styled.div`
         .icon {
           margin-right: 0.4rem;
         }
+
+        &:hover {
+          background-color: #606060;
+        }
       }
 
       .sign-up-btn {
@@ -56,6 +60,10 @@ export const MainContent = styled.div`
         background-color: #f5f5f5;
 
         color: #363636;
+
+        &:hover {
+          background-color: #ededed;
+        }
       }
 
       .login-social {

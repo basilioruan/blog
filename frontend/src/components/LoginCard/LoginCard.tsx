@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ChangeEventHandler, useState } from 'react';
+import React, { ChangeEvent, ChangeEventHandler, ReactNode, useState } from 'react';
 import { Form, FormGroup, Input, Label } from 'reactstrap';
 import { MainContent } from './styles';
 import { IoEnterOutline } from 'react-icons/io5';
@@ -10,6 +10,7 @@ import { signIn } from '../../services/AuthRequests';
 import { useNavigate } from 'react-router';
 import SessionEnum from '../../services/api/SessionEnum';
 import { encryptWithPublicKey } from '../../utils/criptUtils';
+import { FieldsLabels } from '../../utils/fieldsLabel';
 
 type FormInputs = {
   email: string,
@@ -42,10 +43,16 @@ const LoginCard: React.FC = () => {
     }
   }
 
+  const getRequiredFieldMessage = (): ReactNode => {
+    return (
+      <span className='text-danger login-social-text'> {FieldsLabels.REQUIRED_FIELD} </span>
+    );
+  }
+
   return (
     <MainContent>
       <div className="header">
-        <h4>Login</h4>
+        <h4>Fazer login</h4>
       </div>
       <div className="body">
         <Form onSubmit={handleSubmit(onSubmit)}>
@@ -54,14 +61,14 @@ const LoginCard: React.FC = () => {
               Email
             </Label>
             <FormInput id='email' type="text" {...register("email", { required: true })} error={!!errors.email} />
-            {errors.email && <span className='text-danger login-social-text'>This field is required</span>}
+            {errors.email && getRequiredFieldMessage()}
           </FormGroup>
           <FormGroup>
             <Label for="password">
               Senha
             </Label>
             <FormInput id='password' type="password" {...register("password", { required: true })} error={!!errors.password} />
-            {errors.password && <span className='text-danger login-social-text'>This field is required</span>}
+            {errors.password && getRequiredFieldMessage()}
           </FormGroup>
           {errorMessage && <span className='text-danger login-social-text'>{errorMessage}</span>}
           <button className="login-btn" type='submit'>
